@@ -31,7 +31,7 @@ jobs:
       - name: Check Commit Massage
         uses: saulmaldonado/skip-workflow@v1
         with:
-           phrase: /^[a-z]+: \[pcv\].+/gm
+           phrase: '/^[a-z]+: \[pcv\].+/gm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: No-Test Message
         if: ${{ steps.skip-workflow.outputs.skip }}

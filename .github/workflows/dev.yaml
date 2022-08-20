@@ -4,6 +4,8 @@ jobs:
   test:
       runs-on: ubuntu-latest
       steps:
+       #リポジトリからソースをダンロード
+       - uses: actions/checkout@v2
        - name: SetUp Dart SDK
          uses: cedx/setup-dart@v3.0.0
        - name: Cache pubspec dependencies

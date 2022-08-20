@@ -1,0 +1,61 @@
+name: V & V
+on: push
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      run: exit 0
+  gen_mock:
+    name: Generate Mocks for Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: SetUp Dart SDK
+        uses: cedx/setup-dart@v3.0.0
+      - name: Generate Mocks
+        run: dart run build_runner build
+      - name: Push Generated Mocks to Branch
+        run: |
+          git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          if (git diff --shortstat | grep '[0-9]'); then \
+            git add .; \
+            git commit -m "ud: Update with Generated Mocks"; \
+            git push origin HEAD:${GITHUB_REF}; \
+          fi
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: gen_mock
+    steps:
+      - name: Check Commit Massage
+        uses: saulmaldonado/skip-workflow@v1
+        with:
+          phrase: "/^[a-z]+: \[pcv\].+/gm"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: No-Test Message
+        if: ${{ steps.skip-workflow.outputs.skip }}
+        run: echo Skip execution of this job as the test process is not required in this commit
+      - name: SetUp Dart SDK
+        if: ${{ !steps.skip-workflow.outputs.skip }}
+        uses: cedx/setup-dart@v3.0.0
+      - name: Test with Log for Human
+        if: ${{ !steps.skip-workflow.outputs.skip }}
+        run: dart test --reporter=expanded --test-randomize-ordering-seed=random
+      - name: Settle Current Date
+        if: ${{ !steps.skip-workflow.outputs.skip }}
+        run: echo curr_date=`date +%Y%m%d_%H%M%S` >> $GITHUB_ENV
+      - name: Test with Log for File
+        if: ${{ !steps.skip-workflow.outputs.skip }}
+        run: dart test --reporter=json --test-randomize-ordering-seed=random > coverage/test_report_${{ env.curr_date }}.json
+      - name: Push Generated Coverage to Branch
+        if: ${{ !steps.skip-workflow.outputs.skip }}
+        run: |
+          git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          if (git diff --shortstat | grep '[0-9]'); then \
+            git add .; \
+            git commit -m "ud: Test Report > coverage/test_report_${{ env.curr_date }}.json"; \
+            git push origin HEAD:${GITHUB_REF}; \
+          fi

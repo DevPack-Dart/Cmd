@@ -32,7 +32,7 @@ jobs:
       uses: saulmaldonado/skip-workflow@v1
       with:
          phrase: '/^[a-z]+: \[pcv\].+/gm'
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+         github-token: ${{ secrets.GITHUB_TOKEN }}
     - name: No-Test Message
       if: ${{ steps.skip-workflow.outputs.skip }}
       run: echo Skip execution of this job as the test process is not required in this commit

@@ -15,8 +15,6 @@ jobs:
           path: |
             ${{ env.FLUTTER_HOME }}/.pub-cache
             **/.packages
-            **/.flutter-plugins
-            **/.flutter-plugin-dependencies
             **/.dart_tool/package_config.json
           key: build-pubspec-${{ hashFiles('**/pubspec.lock') }}
           restore-keys: |
@@ -31,9 +29,12 @@ jobs:
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           if (git diff --shortstat | grep '[0-9]'); then \
+            echo Commit Update Diffs; \
             git add .; \
-            git commit -m "ud: Update with Generated Mocks"; \
+            git commit -m "🔨ug: Update with Generated Mocks"; \
             git push origin HEAD:${GITHUB_REF}; \
+          else \
+            echo No Update Diffs; \
           fi
   test:
     name: Test
@@ -50,8 +51,6 @@ jobs:
           path: |
             ${{ env.FLUTTER_HOME }}/.pub-cache
             **/.packages
-            **/.flutter-plugins
-            **/.flutter-plugin-dependencies
             **/.dart_tool/package_config.json
           key: build-pubspec-${{ hashFiles('**/pubspec.lock') }}
           restore-keys: |
@@ -76,7 +75,9 @@ jobs:
         run: dart test --reporter=expanded --test-randomize-ordering-seed=random
       - name: Settle Current Date
         if: ${{ steps.skip-workflow.outputs.skip }}
-        run: echo curr_date=`date +%Y%m%d_%H%M%S` >> $GITHUB_ENV
+        run: |
+          echo curr_date=`date +%Y%m%d_%H%M%S` >> $GITHUB_ENV
+          echo ${{ env.curr_date }}
       - name: Test with Log for File
         if: ${{ steps.skip-workflow.outputs.skip }}
         run: dart test --reporter=json --test-randomize-ordering-seed=random > coverage/test_report_${{ env.curr_date }}.json
@@ -87,7 +88,10 @@ jobs:
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           if (git diff --shortstat | grep '[0-9]'); then \
+            echo Commit Update Diffs; \
             git add .; \
-            git commit -m "ud: Test Report > coverage/test_report_${{ env.curr_date }}.json"; \
+            git commit -m "✅ug: Test Report > coverage/test_report_${{ env.curr_date }}.json"; \
             git push origin HEAD:${GITHUB_REF}; \
+          else \
+            echo No Update Diffs; \
           fi

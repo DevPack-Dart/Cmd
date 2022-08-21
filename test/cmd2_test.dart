@@ -8,5 +8,7 @@ import "cmd2_test.mocks.dart";
 
 void main(){
   group("\u001B[35m\n\t|> CLIProfile", (){
+    final dfl = CLIProfile.defaults;
+    print(dfl.show());
   });
 }

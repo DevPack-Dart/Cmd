@@ -1,20 +1,23 @@
+import "package:c/src/md.char.dart";
+
 ///Quote Char, a Bracket
 abstract class Quote{
   final bool pair;
   Quote(this.pair);
-  String cover(String str);
+  String cover(String str) => "${this.starts}$str${this.ends}";
   String uncover(String str);
-  bool hasCoveringIn(String str);
+  bool hasCoveringIn(String str) => str.startsWith(this.starts) && str.endsWith(this.ends);
   String get starts;
   String get ends;
+  String show() {
+    final n = AngleQuote().cover("Quote");
+    return "$n${MarkChars.lf}starts: ${this.starts}${MarkChars.lf}ends:${this.ends}${MarkChars.lf}";}
 }
 
 ///Symmetrical quote char, that start and end char are same, such as "'"
 abstract class SymmetricalQuote extends Quote{
   final String char;
   SymmetricalQuote(this.char): super(false);
-  @override
-  String cover(String str) => "${this.char}$str${this.char}";
   @override
   String uncover(String str){
     if(this.hasCoveringIn(str)){
@@ -24,7 +27,6 @@ abstract class SymmetricalQuote extends Quote{
     }
   }
   @override
-  bool hasCoveringIn(String str) => str.startsWith(this.char) && str.endsWith(this.char);
   @override
   String get starts => this.char;
   @override
@@ -32,7 +34,7 @@ abstract class SymmetricalQuote extends Quote{
 }
 ///natural double quotation mark "\""
 class DoubleQuote extends SymmetricalQuote{
-  DoubleQuote(): super("\"");
+  DoubleQuote(): super(MarkChars.dqu);
 }
 
 ///Asymmetrical quote char, pair of bra and ket such as "＜" and "＞" pair
@@ -40,8 +42,6 @@ abstract class AsymmetricalQuote extends Quote{
   final String begin;
   final String end;
   AsymmetricalQuote(this.begin, this.end): super(true);
-  @override
-  String cover(String str) => "${this.begin}$str${this.end}";
   @override
   String uncover(String str){
     if(this.hasCoveringIn(str)){
@@ -51,9 +51,11 @@ abstract class AsymmetricalQuote extends Quote{
     }
   }
   @override
-  bool hasCoveringIn(String str) => str.startsWith(this.begin) && str.endsWith(this.end);
-  @override
   String get starts => this.begin;
   @override
   String get ends => this.end;
+}
+
+class AngleQuote extends AsymmetricalQuote{
+  AngleQuote(): super(MarkChars.aBra, MarkChars.aKet);
 }

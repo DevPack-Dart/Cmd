@@ -43,29 +43,28 @@ class MockChetroStyle extends _i1.Mock implements _i2.ChetroStyle {
           .noSuchMethod(Invocation.getter(#canUseValuables), returnValue: false)
       as bool);
   @override
-  set canQuote(bool? _canQuote) =>
-      super.noSuchMethod(Invocation.setter(#canQuote, _canQuote),
-          returnValueForMissingStub: null);
-  @override
-  set canUseShortAccumulated(bool? _canUseShortAccumulated) =>
-      super.noSuchMethod(
-          Invocation.setter(#canUseShortAccumulated, _canUseShortAccumulated),
-          returnValueForMissingStub: null);
-  @override
-  set canUseParameters(bool? _canUseParameters) => super.noSuchMethod(
-      Invocation.setter(#canUseParameters, _canUseParameters),
-      returnValueForMissingStub: null);
-  @override
-  set canUseValuables(bool? _canUseValuables) =>
-      super.noSuchMethod(Invocation.setter(#canUseValuables, _canUseValuables),
-          returnValueForMissingStub: null);
+  List<_i2.CLIEntryFormat> get entries =>
+      (super.noSuchMethod(Invocation.getter(#entries),
+          returnValue: <_i2.CLIEntryFormat>[]) as List<_i2.CLIEntryFormat>);
   @override
   List<_i3.Quote> get quoteChars =>
       (super.noSuchMethod(Invocation.getter(#quoteChars),
           returnValue: <_i3.Quote>[]) as List<_i3.Quote>);
   @override
+  String get spaceChar =>
+      (super.noSuchMethod(Invocation.getter(#spaceChar), returnValue: '')
+          as String);
+  @override
   String get escapeChar =>
       (super.noSuchMethod(Invocation.getter(#escapeChar), returnValue: '')
+          as String);
+  @override
+  bool isEscapedLoc(int? escLoc, int? targetLoc) =>
+      (super.noSuchMethod(Invocation.method(#isEscapedLoc, [escLoc, targetLoc]),
+          returnValue: false) as bool);
+  @override
+  String show() =>
+      (super.noSuchMethod(Invocation.method(#show, []), returnValue: '')
           as String);
 }
 
@@ -94,29 +93,28 @@ class MockPosixStyle extends _i1.Mock implements _i2.PosixStyle {
           .noSuchMethod(Invocation.getter(#canUseValuables), returnValue: false)
       as bool);
   @override
-  set canQuote(bool? _canQuote) =>
-      super.noSuchMethod(Invocation.setter(#canQuote, _canQuote),
-          returnValueForMissingStub: null);
-  @override
-  set canUseShortAccumulated(bool? _canUseShortAccumulated) =>
-      super.noSuchMethod(
-          Invocation.setter(#canUseShortAccumulated, _canUseShortAccumulated),
-          returnValueForMissingStub: null);
-  @override
-  set canUseParameters(bool? _canUseParameters) => super.noSuchMethod(
-      Invocation.setter(#canUseParameters, _canUseParameters),
-      returnValueForMissingStub: null);
-  @override
-  set canUseValuables(bool? _canUseValuables) =>
-      super.noSuchMethod(Invocation.setter(#canUseValuables, _canUseValuables),
-          returnValueForMissingStub: null);
+  List<_i2.CLIEntryFormat> get entries =>
+      (super.noSuchMethod(Invocation.getter(#entries),
+          returnValue: <_i2.CLIEntryFormat>[]) as List<_i2.CLIEntryFormat>);
   @override
   List<_i3.Quote> get quoteChars =>
       (super.noSuchMethod(Invocation.getter(#quoteChars),
           returnValue: <_i3.Quote>[]) as List<_i3.Quote>);
   @override
+  String get spaceChar =>
+      (super.noSuchMethod(Invocation.getter(#spaceChar), returnValue: '')
+          as String);
+  @override
   String get escapeChar =>
       (super.noSuchMethod(Invocation.getter(#escapeChar), returnValue: '')
+          as String);
+  @override
+  bool isEscapedLoc(int? escLoc, int? targetLoc) =>
+      (super.noSuchMethod(Invocation.method(#isEscapedLoc, [escLoc, targetLoc]),
+          returnValue: false) as bool);
+  @override
+  String show() =>
+      (super.noSuchMethod(Invocation.method(#show, []), returnValue: '')
           as String);
 }
 
@@ -145,28 +143,27 @@ class MockGNUStyle extends _i1.Mock implements _i2.GNUStyle {
           .noSuchMethod(Invocation.getter(#canUseValuables), returnValue: false)
       as bool);
   @override
-  set canQuote(bool? _canQuote) =>
-      super.noSuchMethod(Invocation.setter(#canQuote, _canQuote),
-          returnValueForMissingStub: null);
-  @override
-  set canUseShortAccumulated(bool? _canUseShortAccumulated) =>
-      super.noSuchMethod(
-          Invocation.setter(#canUseShortAccumulated, _canUseShortAccumulated),
-          returnValueForMissingStub: null);
-  @override
-  set canUseParameters(bool? _canUseParameters) => super.noSuchMethod(
-      Invocation.setter(#canUseParameters, _canUseParameters),
-      returnValueForMissingStub: null);
-  @override
-  set canUseValuables(bool? _canUseValuables) =>
-      super.noSuchMethod(Invocation.setter(#canUseValuables, _canUseValuables),
-          returnValueForMissingStub: null);
+  List<_i2.CLIEntryFormat> get entries =>
+      (super.noSuchMethod(Invocation.getter(#entries),
+          returnValue: <_i2.CLIEntryFormat>[]) as List<_i2.CLIEntryFormat>);
   @override
   List<_i3.Quote> get quoteChars =>
       (super.noSuchMethod(Invocation.getter(#quoteChars),
           returnValue: <_i3.Quote>[]) as List<_i3.Quote>);
   @override
+  String get spaceChar =>
+      (super.noSuchMethod(Invocation.getter(#spaceChar), returnValue: '')
+          as String);
+  @override
   String get escapeChar =>
       (super.noSuchMethod(Invocation.getter(#escapeChar), returnValue: '')
+          as String);
+  @override
+  bool isEscapedLoc(int? escLoc, int? targetLoc) =>
+      (super.noSuchMethod(Invocation.method(#isEscapedLoc, [escLoc, targetLoc]),
+          returnValue: false) as bool);
+  @override
+  String show() =>
+      (super.noSuchMethod(Invocation.method(#show, []), returnValue: '')
           as String);
 }
